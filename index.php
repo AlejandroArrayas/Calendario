@@ -9,7 +9,7 @@
 setlocale(LC_TIME, 'es_ES.UTF-8', 'Spanish_Spain', 'es_ES', 'es'); // Configurar en español
 
 // Variables de mes y año
-$mes = 4;  // Julio
+$mes = 4; 
 $año = 2025;
 
 // Fecha actual definida
