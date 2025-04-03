@@ -9,10 +9,18 @@
 setlocale(LC_TIME, 'es_ES.UTF-8', 'Spanish_Spain', 'es_ES', 'es'); // Configurar en español
 
 // Variables de mes y año
-$mes = 4;  // Julio
+
+//Valor Inicial
+$mes = 4; 
 $año = 2025;
 
-// Fecha actual definida
+//Comprobamos que se haya mandado el formulario antes de guardar los datos
+if(isset($_POST['mes']) && isset($_POST['año'])){
+    $mes = $_POST['mes'];
+    $año = $_POST['año'];
+}
+
+// Fecha actual
 $actual = date("Y-m-d");
 
 // Nombre del mes
@@ -22,7 +30,7 @@ $mes_texto = ucfirst($mes_texto);
 // Número de días en el mes
 $numDiasMes = date("t", strtotime("$año-$mes-01"));
 
-// Día de la semana del primer día del mes (0=domingo, 6=sábado)
+// Día de la semana del primer día del mes ( 0=>domingo  6=>sábado )
 $diaUno = strtotime("$año-$mes-01");
 $primerDiaMes = date("w", $diaUno);
 
@@ -74,6 +82,12 @@ function nombreDia($dia, $mes, $año) {
             background-color: darkgray;
             color: white;
         }
+
+        form{
+            display: flex;
+            flex-direction: column;
+            width: 40em;
+        }
     </style>
 </head>
 <body>
@@ -97,16 +111,41 @@ function nombreDia($dia, $mes, $año) {
         for ($i = 1; $i <= $numDiasMes; $i++) {
             $nombreDia = nombreDia($i, $mes, $año);
             $clase = 'dia';
+            $diaActual = date("Y-m-d", strtotime("$año-$mes-$i"));
             
             if ($nombreDia == 'Domingo') {
                 $clase .= ' drojo';
-            } elseif (date("Y-m-d", strtotime("$año-$mes-$i")) == $actual) {
+            } elseif ($diaActual == $actual) {
                 $clase .= ' dverde';
             }
             
             echo "<div class='$clase'>$i</div>";
         }
         ?>
+    </div>
+
+    <div class="formCaln">
+        <h2>Introduce el Año y el Mes</h2>
+        <form method="post" action="index.php">
+            <label for="año">Introduce el año</label>
+            <input type="number" id="año" name="año" min=1920 max=2100>
+            <label for="mes">Introduce el Mes</label>
+            <select name="mes" id="mes">
+                <option value="1">Enero</option>
+                <option value="2">Febrero</option>
+                <option value="3">Marzo</option>
+                <option value="4">Abril</option>
+                <option value="5">Mayo</option>
+                <option value="6">Junio</option>
+                <option value="7">Julio</option>
+                <option value="8">Agosto</option>
+                <option value="9">Septiembre</option>
+                <option value="10">Octubre</option>
+                <option value="11">Noviembre</option>
+                <option value="12">Diciembre</option>
+            </select>
+            <button type="submit">Submit</button>
+        </form>
     </div>
 </body>
 </html>
