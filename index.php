@@ -87,6 +87,7 @@ function nombreDia($dia, $mes, $año) {
             display: flex;
             flex-direction: column;
             width: 40em;
+            justify-content: center;
         }
     </style>
 </head>
